@@ -1,6 +1,6 @@
 specVersion: 0.0.4
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Marketplace
@@ -19,7 +19,7 @@ dataSources:
         - ItemToSeller
       abis:
         - name: Marketplace
-          file: ./abis/Marketplace.json
+          file: Marketplace/abis/Marketplace.json
       eventHandlers:
         - event: ItemAdded(uint256,indexed string,uint256,address,address,bool)
           handler: handleItemAdded
@@ -27,4 +27,4 @@ dataSources:
           handler: handleItemSoldTo
         - event: ItemToSeller(indexed address,string)
           handler: handleItemToSeller
-      file: ./src/marketplace.ts
+      file: Marketplace/Marketplace.wasm

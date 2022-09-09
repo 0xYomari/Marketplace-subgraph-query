@@ -1,57 +1,46 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, Bytes } from "@graphprotocol/graph-ts"
 import {
-  Marketplace,
-  ItemAdded,
-  ItemSoldTo,
-  ItemToSeller
+  ItemAdded as ItemAddedEvent,
+  ItemSoldTo as ItemSoldToEvent,
+  ItemToSeller as ItemToSellerEvent
 } from "../generated/Marketplace/Marketplace"
-import { ExampleEntity } from "../generated/schema"
 
-export function handleItemAdded(event: ItemAdded): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
+import { ItemAdded, ItemToSeller, ItemSoldTo} from "../generated/schema"
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
+export function handleItemAdded(event: ItemAddedEvent): void {
+ let itemAdded =  ItemAdded.load(getIdFromEvenFromtParams(event.params.itemId, event.params.itemName))
+ if(!itemAdded){
+  itemAdded = new ItemAdded(getIdFromEvenFromtParams(event.params.itemId, event.params.itemName))
+ }
+//  itemAdded.itemName = event.params.itemName
+itemAdded.itemName = event.params.itemName
+itemAdded.itemId= event.params.itemId
 
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
-
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity.itemId = event.params.itemId
-  entity.itemName = event.params.itemName
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.getItem(...)
-  // - contract.getItemPrice(...)
-  // - contract.getProductitemId(...)
-  // - contract.s_item(...)
 }
 
-export function handleItemSoldTo(event: ItemSoldTo): void {}
+export function handleItemSoldTo(event: ItemSoldToEvent): void {
+  let itemBought = ItemSoldTo.load(getIdFromEventParams(event.params.buyer, event.params.itemName))
+  if(!itemBought){
+    itemBought=new ItemSoldTo(getIdFromEventParams(event.params.buyer, event.params.itemName))
+  }
+  itemBought.buyer = event.params.buyer
+  itemBought.itemName= event.params.itemName
+  itemBought.save()
+}
 
-export function handleItemToSeller(event: ItemToSeller): void {}
+export function handleItemToSeller(event: ItemToSellerEvent): void {
+  let itemSold = ItemToSeller.load(getIdFromEventParams(event.params.seller, event.params.itemName))
+  if(!itemSold){
+    itemSold = new ItemToSeller(getIdFromEventParams(event.params.seller, event.params.itemName))
+  }
+  itemSold.seller= event.params.seller
+  itemSold.itemName= event.params.itemName
+  itemSold.save()
+
+}
+function getIdFromEvenFromtParams(id:BigInt, itemName:string):string{
+  return id.toHexString() + itemName
+}
+function getIdFromEventParams( address: Bytes, name: string):string {
+  return address.toHexString() + name
+}
