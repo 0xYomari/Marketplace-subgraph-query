@@ -1,0 +1,189 @@
+[
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "inputs": [],
+    "name": "MarketPlace__BalanceTransferFailed",
+    "type": "error"
+  },
+  { "inputs": [], "name": "MarketPlace__EnterExactPrice", "type": "error" },
+  { "inputs": [], "name": "MarketPlace__EnterRightItem", "type": "error" },
+  { "inputs": [], "name": "MarketPlace__ItemAlreadyListed", "type": "error" },
+  { "inputs": [], "name": "MarketPlace__ItemNotListed", "type": "error" },
+  {
+    "inputs": [],
+    "name": "MarketPlace__NoItemAvailableToBuySell",
+    "type": "error"
+  },
+  { "inputs": [], "name": "MarketPlace__NotOwner", "type": "error" },
+  { "inputs": [], "name": "MarketPlace__NullValueNotAllowed", "type": "error" },
+  { "inputs": [], "name": "MarketPlace__SameItemNotAllowed", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "itemId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "itemName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "listed",
+        "type": "bool"
+      }
+    ],
+    "name": "ItemAdded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "itemName",
+        "type": "string"
+      }
+    ],
+    "name": "ItemSoldTo",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "itemName",
+        "type": "string"
+      }
+    ],
+    "name": "ItemToSeller",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_itemName", "type": "string" }
+    ],
+    "name": "buyer",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getItem",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "itemId", "type": "uint256" },
+          { "internalType": "string", "name": "itemName", "type": "string" },
+          { "internalType": "uint256", "name": "price", "type": "uint256" },
+          {
+            "internalType": "address payable",
+            "name": "seller",
+            "type": "address"
+          },
+          {
+            "internalType": "address payable",
+            "name": "buyer",
+            "type": "address"
+          },
+          { "internalType": "bool", "name": "listed", "type": "bool" }
+        ],
+        "internalType": "struct MarketPlace.Items[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getItemPrice",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getProductitemId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_itemName", "type": "string" }
+    ],
+    "name": "listItems",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "s_item",
+    "outputs": [
+      { "internalType": "uint256", "name": "itemId", "type": "uint256" },
+      { "internalType": "string", "name": "itemName", "type": "string" },
+      { "internalType": "uint256", "name": "price", "type": "uint256" },
+      {
+        "internalType": "address payable",
+        "name": "seller",
+        "type": "address"
+      },
+      { "internalType": "address payable", "name": "buyer", "type": "address" },
+      { "internalType": "bool", "name": "listed", "type": "bool" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_itemName", "type": "string" }
+    ],
+    "name": "seller",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
